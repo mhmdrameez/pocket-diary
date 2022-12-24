@@ -1,0 +1,56 @@
+<section class="pkt_content_container">
+    <section class="pkt_search_container">
+        <form class="form-inline " action="/user/search" method="post">
+            <input type="text" name="search" id="pkt_search_bar" placeholder="Search">
+            <button type="submit" class="mybtn search-btn">Search</button>
+        </form>
+        <a href="user/add-journal" class="pkt_add_diary_btn">
+            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon"
+                style="pointer-events: none; display: block;">
+                <g class="style-scope yt-icon">
+                    <path
+                        d="M17,13h-4v4h-2v-4H7v-2h4V7h2v4h4V13z M12,3c-4.96,0-9,4.04-9,9s4.04,9,9,9c4.96,0,9-4.04,9-9S16.96,3,12,3 M12,2 c5.52,0,10,4.48,10,10s-4.48,10-10,10C6.48,22,2,17.52,2,12S6.48,2,12,2L12,2z"
+                        class="style-scope yt-icon"></path>
+                </g>
+            </svg>
+            <span>Add Today's</span>
+        </a>
+    </section>
+    <section class="pkt_content_view">  
+        <div class="pkt_content">
+            <button class="pkt_date_filter_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-calendar">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {{!-- <span>
+                    This month
+                </span> --}}
+                <svg width="9" height="6" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.84 23.2L0.0800002 0.879995H35.6L17.84 23.2Z" fill="#000" />
+                </svg>
+            </button>
+            {{!-- <article class="pkt_diary_item">
+                <span>1 Tue</span>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                    been...
+                </p>
+            </article> --}}
+            
+                <ul class="data">
+                    {{#each data}}
+                    <li>
+                        <a href="/user/user-index/{{this.date}}" class="btn white">{{this.day}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+
+            
+        </div>
+    </section>
+</section>

@@ -1,0 +1,33 @@
+<section class="bg-secondary">
+    <div class=" container-fluid">
+        <div class="section ">
+
+            <div class="l-section col-3  bg-dark ">
+                <form class="form-inline " action="/user/search" method="post">
+                    <div class="search-div my-3">
+                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </div>
+                </form>
+                <a class="btn btn-dark my-2 " style="font-size: 30px; background-color:rgb(71, 71, 71);width:100%;"
+                    href="user/add-journal" role="button">
+                    + new
+                </a>
+            </div>
+            <div class="r-section col-9 bg-light">
+                <a href="/" class="btn btn-primary back-btn my-3">Back</a>
+                
+                <div class="date">{{k}}</div>
+                
+                <div class="content">{{{html}}}</div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</section>

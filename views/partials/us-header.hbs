@@ -1,0 +1,36 @@
+<header id="pkt_header">
+        <div class="pkt_logo_container">
+            <a href="/"><img src="/images/icons/logo.svg" alt="" class="pkt_logo"></a>
+        </div>
+        <div class="pkt_header_gap"></div>
+        <div class="pkt_auth_container">
+            <div class="pkt_auth">
+                <span class="pkt_auth_username">{{user.User-Name}}</span><br />
+                <span class="pkt_auth_email">{{user.email}}</span>
+            </div>
+            <label for="pkt_auth_dropdown_checkbox" class="pkt_auth_dropdown_btn">
+                <svg class="pkt_auth_dropdown_btn_svg" width="36" height="24" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.84 23.2L0.0800002 0.879995H35.6L17.84 23.2Z" fill="#F55381" />
+                </svg>
+            </label>
+            <input type="checkbox" id="pkt_auth_dropdown_checkbox" />
+            <ul class="pkt_auth_dropdown_list">
+                {{!-- <li class="pkt_auth_dropdown_list_item">
+                    <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M39 6.5C21.06 6.5 6.5 21.06 6.5 39C6.5 56.94 21.06 71.5 39 71.5C56.94 71.5 71.5 56.94 71.5 39C71.5 21.06 56.94 6.5 39 6.5ZM22.9775 59.41C24.375 56.485 32.89 53.625 39 53.625C45.11 53.625 53.6575 56.485 55.0225 59.41C50.6025 62.92 45.045 65 39 65C32.955 65 27.3975 62.92 22.9775 59.41ZM59.67 54.6975C55.0225 49.0425 43.745 47.125 39 47.125C34.255 47.125 22.9775 49.0425 18.33 54.6975C15.015 50.3425 13 44.915 13 39C13 24.6675 24.6675 13 39 13C53.3325 13 65 24.6675 65 39C65 44.915 62.985 50.3425 59.67 54.6975V54.6975ZM39 19.5C32.695 19.5 27.625 24.57 27.625 30.875C27.625 37.18 32.695 42.25 39 42.25C45.305 42.25 50.375 37.18 50.375 30.875C50.375 24.57 45.305 19.5 39 19.5ZM39 35.75C36.3025 35.75 34.125 33.5725 34.125 30.875C34.125 28.1775 36.3025 26 39 26C41.6975 26 43.875 28.1775 43.875 30.875C43.875 33.5725 41.6975 35.75 39 35.75Z"
+                            fill="white" />
+                    </svg>
+                    Profile
+                </li> --}}
+                <li class="pkt_auth_dropdown_list_item">
+                    <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M53.8333 25.3333L49.3683 29.7983L54.3717 34.8333H28.5V41.1667H54.3717L49.3683 46.17L53.8333 50.6667L66.5 38L53.8333 25.3333ZM15.8333 15.8333H38V9.5H15.8333C12.35 9.5 9.5 12.35 9.5 15.8333V60.1667C9.5 63.65 12.35 66.5 15.8333 66.5H38V60.1667H15.8333V15.8333Z"
+                            fill="white" />
+                    </svg>
+                    <a href="/logout" class="white">Logout</a> 
+                </li>
+            </ul>
+        </div>
+    </header>

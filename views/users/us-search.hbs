@@ -1,0 +1,43 @@
+<section class="pkt_content_container">
+    <section class="pkt_search_container">
+        <form class="form-inline " action="/search" method="post">
+            <input type="text" name="search" id="pkt_search_bar" placeholder="Search">
+            <button type="submit" class="mybtn search-btn">Search</button>
+        </form>
+        <a href="user/add-journal" class="pkt_add_diary_btn">
+            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon"
+                style="pointer-events: none; display: block;">
+                <g class="style-scope yt-icon">
+                    <path
+                        d="M17,13h-4v4h-2v-4H7v-2h4V7h2v4h4V13z M12,3c-4.96,0-9,4.04-9,9s4.04,9,9,9c4.96,0,9-4.04,9-9S16.96,3,12,3 M12,2 c5.52,0,10,4.48,10,10s-4.48,10-10,10C6.48,22,2,17.52,2,12S6.48,2,12,2L12,2z"
+                        class="style-scope yt-icon"></path>
+                </g>
+            </svg>
+            <span>Add Today's</span>
+        </a>
+    </section>
+
+
+    <section class="pkt_content_view">
+        <div class="pkt_content">
+
+
+
+            <a href="/" class="mybtn">Back</a>
+            <h2 class="my-3">Search Result of "{{search}}"</h2>
+            <div class="my-desc grey">{{{html}}}</div>
+            {{#each result}}
+            <li class="my-list">
+
+                <a class="white" href="/user/user-index/{{this.date}}">
+                    <div class="daily-title p-2 ">{{this.date}}</div>
+                </a>
+
+            </li>
+
+            {{/each}}
+
+        </div>
+    </section>
+
+</section>
