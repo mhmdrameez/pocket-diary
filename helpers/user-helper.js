@@ -1,126 +1,101 @@
-var db = require("../config/connection");
-var collection = require("../config/collections");
-var bcrypt = require('bcrypt');
-const { response } = require("express");
+const db = require("../config/connection");
+const collection = require("../config/collections");
+const bcrypt = require('bcrypt');
 const { ObjectId } = require("mongodb");
 
 module.exports = {
-    doSignup: (userData) => {
-        return new Promise(async (resolve, reject) => {
-            userData.Password = await bcrypt.hash(userData.Password, 10)
-            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
-                resolve(data.insertedId)
-                console.log(data.insertedId)
-            })
-        })
+    doSignup: async (userData) => {
+        try {
+            userData.Password = await bcrypt.hash(userData.Password, 10);
+            const result = await db.get().collection(collection.USER_COLLECTION).insertOne(userData);
+            console.log(result.insertedId);
+            return result.insertedId;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     },
-    doLogin: (userData) => {
-        return new Promise(async (resolve, reject) => {
-            let loginStatus = false
-            let response = {}
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email })
+
+    doLogin: async (userData) => {
+        try {
+            const response = { status: false };
+            const user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
             if (user) {
-                bcrypt.compare(userData.Password, user.Password).then((status) => {
-                    if (status) {
-
-                        response.user = user
-                        response.status = true
-                        resolve(response)
-
-                    } else {
-                        console.log("Fail")
-                        resolve({ status: false })
-                    }
-                })
-            } else {
-                console.log("wrong email")
-                resolve({ status: false })
+                const status = await bcrypt.compare(userData.Password, user.Password);
+                if (status) {
+                    response.user = user;
+                    response.status = true;
+                }
             }
-        })
+            return response;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     },
-    addDetails: (userid, newData) => {
-        return new Promise(async (resolve, reject) => {
 
-            let dataObj = {
+    addDetails: async (userid, newData) => {
+        try {
+            const dataObj = {
                 user: ObjectId(userid),
                 data: newData
-            }
-            db.get().collection(collection.DATA_COLLECTION)
-                .insertOne(dataObj)
-                .then(() => {
-                    resolve()
-                    console.log(data + "inserted")
-
-                })
-                .catch(err => {
-
-                })
-        })
-
+            };
+            const result = await db.get().collection(collection.DATA_COLLECTION).insertOne(dataObj);
+            console.log(result.insertedId + " inserted");
+            return result.insertedId;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     },
-    getAllDetails: (user) => {
-        return new Promise(async (resolve, reject) => {
-            let newd = []
-            let data = await db.get().collection(collection.DATA_COLLECTION).aggregate(
-                [   {
-                        $match: { "user": ObjectId(user._id) }
-                    },
-                    { 
-                        $sort : { "data.date" : -1 }
-                    }
-                ]
 
-            ).toArray()
+    getAllDetails: async (user) => {
+        try {
+            const data = await db.get().collection(collection.DATA_COLLECTION).aggregate([
+                {
+                    $match: { "user": ObjectId(user._id) }
+                },
+                {
+                    $sort: { "data.date": -1 }
+                }
+            ]).toArray();
 
-            data.forEach((item) => {
-                newd.push(item.data)
-            });
-            //newd = 'data' pushed to an array
-            resolve(newd)
-        })
+            const newd = data.map(item => item.data);
+            return newd;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     },
-    getDay: (date, user) => {
-        return new Promise(async (resolve, reject) => {
-            let newd = []
-            let data = await db.get().collection(collection.DATA_COLLECTION).aggregate(
-                [{
-                    $match:
-                    {
+
+    getDay: async (date, user) => {
+        try {
+            const data = await db.get().collection(collection.DATA_COLLECTION).aggregate([
+                {
+                    $match: {
                         $and: [{ "user": ObjectId(user._id) }, { "data.date": date }]
                     }
-                }]
-            ).toArray()
-            
+                }
+            ]).toArray();
 
-            data.forEach((item) => {
-                newd.push(item.data)
-            });
-
-            
-            resolve(newd)
-
-        })
-
+            const newd = data.map(item => item.data);
+            return newd;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     },
-    getSearch: (search, user) => {
-        return new Promise(async (resolve, reject) => {
-            let newd = []
-            let data = await db.get().collection(collection.DATA_COLLECTION).aggregate(
-                [{
-                    $match:
-                    {
+
+    getSearch: async (search, user) => {
+        try {
+            const data = await db.get().collection(collection.DATA_COLLECTION).aggregate([
+                {
+                    $match: {
                         $and: [{ "user": ObjectId(user._id) }, { "data.content": { $regex: search } }]
                     }
-                }]
-            ).toArray()
+                }
+            ]).toArray();
 
-            data.forEach((item) => {
-                newd.push(item.data)
-            });
-            
-            console.log(newd)
-            resolve(newd)
-        })
+            const newd = data.map(item => item.data);
+            console.log(newd);
+            return newd;
+        } catch (error) {
+            throw error; // Forward the error to the caller
+        }
     }
-
-}
+};
